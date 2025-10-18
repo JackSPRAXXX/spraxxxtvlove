@@ -206,6 +206,60 @@
       </div>
     </section>
 
+    <!-- ===== Internet Archive Classic (restored embeds) ===== -->
+<section id="ia-classic" class="shout-card" style="background:#0e0e0e;border:1px solid var(--edge);border-radius:var(--r);padding:16px;">
+  <h2 class="shout-title" style="font-weight:800;font-size:18px;margin:0 0 8px;">Internet Archive Classic</h2>
+
+  <!-- Channel A — Beavis & Butt-Head (autoplay) -->
+  <div class="ia-embed" style="position:relative; padding-top:56.25%; margin:12px 0; border:1px solid var(--edge); border-radius:12px; overflow:hidden;">
+    <iframe
+      id="ia-channel-a"
+      src="https://archive.org/embed/s-7-ep-41-beavis-butthead-are-dead?autoplay=1"
+      title="Beavis and Butt-Head — Internet Archive"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      style="position:absolute; inset:0; width:100%; height:100%; border:0;">
+    </iframe>
+  </div>
+
+  <!-- Channel B — swap the src to any other IA item (or delete this whole block if you only want one) -->
+  <div class="ia-embed" style="position:relative; padding-top:56.25%; margin:12px 0; border:1px solid var(--edge); border-radius:12px; overflow:hidden;">
+    <iframe
+      id="ia-channel-b"
+      src="https://archive.org/embed/Classic_Canadian_TV_Commercials?autoplay=1"
+      title="Classic Canadian TV Commercials — Internet Archive"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+      referrerpolicy="no-referrer-when-downgrade"
+      style="position:absolute; inset:0; width:100%; height:100%; border:0;">
+    </iframe>
+  </div>
+
+  <p class="saying" style="font-style:italic;color:#e6e6e6;margin-top:6px;">
+    Streaming via the Internet Archive. Public domain (where applicable).
+    <a href="https://archive.org/" target="_blank" rel="noopener" class="tag" style="display:inline-block;margin:.25rem .25rem 0 0;font-size:12px;border:1px solid var(--edge);padding:4px 8px;border-radius:999px;color:#ddd;text-decoration:none;">View on Internet Archive</a>
+    <a href="https://archive.org/donate/" target="_blank" rel="noopener" class="tag" style="display:inline-block;margin:.25rem .25rem 0 0;font-size:12px;border:1px solid var(--edge);padding:4px 8px;border-radius:999px;color:#ddd;text-decoration:none;">❤️ Support IA</a>
+  </p>
+</section>
+
+<script>
+  // “Keep it rolling” — reload embeds after a set time to simulate continuous play.
+  const LOOP_MIN_A = 30; // ~episode length
+  const LOOP_MIN_B = 45; // commercials reel can be longer
+
+  const reloadFrame = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const src = el.getAttribute('src');
+    el.setAttribute('src', src.replace(/([?&])ts=\d+/, '$1') + (src.includes('?') ? '&' : '?') + 'ts=' + Date.now());
+  };
+
+  setInterval(() => reloadFrame('ia-channel-a'), LOOP_MIN_A * 60 * 1000);
+  setInterval(() => reloadFrame('ia-channel-b'), LOOP_MIN_B * 60 * 1000);
+</script>
+<!-- ===== /Internet Archive Classic ===== -->
+    
     <!-- (existing) Dignity Wall -->
     <section class="block" id="dignity-wall">
       <h2>🧱 The Dignity Wall</h2>
