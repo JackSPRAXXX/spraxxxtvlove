@@ -1,0 +1,95 @@
+--- index.html
++++ index.html
+@@
+-<body>
++<body>
++
++  <!-- ========== HALLOWEEN SPECIAL — HERO (autoplay, 5h) ========== -->
++  <!-- Minimal, self-contained, no global CSS changes -->
++  <section aria-label="MTV Halloween Special"
++           style="position:relative;width:100%;aspect-ratio:16/9;background:#000;border-bottom:1px solid rgba(255,255,255,.12);">
++    <div style="position:absolute;inset:0;">
++      <iframe id="halloween-hero"
++        src="https://archive.org/embed/1984.10.31_MTV_Halloween_Special_5_Hours_with_Guest_VJ_Elvira_October_31st_1984?autoplay=1"
++        title="MTV Halloween Special — 5 Hours with Guest VJ Elvira (1984)"
++        allow="autoplay; fullscreen; picture-in-picture"
++        allowfullscreen
++        referrerpolicy="no-referrer-when-downgrade"
++        style="width:100%;height:100%;border:0;display:block;">
++      </iframe>
++    </div>
++    <div style="position:absolute;left:0;right:0;bottom:0;padding:8px 12px;
++                background:linear-gradient(180deg,transparent,rgba(0,0,0,.65) 40%,rgba(0,0,0,.85));
++                display:flex;justify-content:space-between;gap:12px;align-items:flex-end;">
++      <div>
++        <h1 style="font-size:18px;margin:0 0 4px;">🎃 MTV Halloween Special — 5 Hours</h1>
++        <a href="https://archive.org/details/1984.10.31_MTV_Halloween_Special_5_Hours_with_Guest_VJ_Elvira_October_31st_1984"
++           target="_blank" rel="noopener"
++           style="display:inline-block;font-size:12px;border:1px solid rgba(255,255,255,.12);
++                  border-radius:999px;padding:6px 10px;text-decoration:none;color:#fff;">View on Internet Archive</a>
++      </div>
++    </div>
++  </section>
++  <!-- ========== /HALLOWEEN SPECIAL — HERO ========== -->
+@@
+ </script>
+ <!-- ===== /Internet Archive Classic ===== -->
+     
+     <!-- (existing) Dignity Wall -->
+     <section class="block" id="dignity-wall">
+@@
+   </main>
+ 
+-  <footer>
+-    <p>🌐 Explore the Nation:
+-      <a href="https://spraxxx.com" target="_blank" rel="noopener">spraxxx.com</a> ·
+-      <a href="https://spraxxx.ai" target="_blank" rel="noopener">spraxxx.ai</a> ·
+-      <a href="https://spraxxx.tv" target="_blank" rel="noopener">spraxxx.tv</a> ·
+-      <a href="https://spraxxx.net" target="_blank" rel="noopener">spraxxx.net</a>
+-    </p>
+-    <p class="muted">© <span id="y"></span> SPRAXXX Nation — Brotherhood in Motion</p>
+-  </footer>
++  <footer>
++    <p>🌐 Explore the Nation:
++      <a href="https://spraxxx.com" target="_blank" rel="noopener">spraxxx.com</a> ·
++      <a href="https://spraxxx.ai" target="_blank" rel="noopener">spraxxx.ai</a> ·
++      <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
++    </p>
++    <p class="muted" style="margin:.35rem 0;">
++      <a href="mailto:jacques@spraxxx.com">jacques@spraxxx.com</a> ·
++      <a href="mailto:support@spraxxx.tv">support@spraxxx.tv</a>
++    </p>
++    <p class="muted" style="margin:.35rem 0;">
++      <a href="https://spraxxx.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> ·
++      <a href="https://spraxxx.com/legal" target="_blank" rel="noopener">Legal</a>
++    </p>
++    <p class="muted">© <span id="y"></span> SPRAXXX Nation — Brotherhood in Motion</p>
++  </footer>
+@@
+   <script>
+     document.getElementById('y').textContent=new Date().getFullYear();
++
++    // Keep the hero rolling after ~5 hours (IA iframes don’t expose end events)
++    (function(){
++      const RELOAD_MIN = 300; // 5h
++      const hero = document.getElementById('halloween-hero');
++      if (hero) {
++        setInterval(function(){
++          const src = hero.getAttribute('src');
++          hero.setAttribute('src', src.replace(/([?&])ts=\d+/, '$1') + (src.includes('?') ? '&' : '?') + 'ts=' + Date.now());
++        }, RELOAD_MIN * 60 * 1000);
++      }
++    })();
++
++    // Move "StarMaker of the Week" to sit between Sweet Girl and SPRAXXX (no visual restyle)
++    (function(){
++      var sm = document.querySelector('#starmaker-of-the-week, #starmaker, section.starmaker, [data-block="starmaker"]');
++      var sweet = document.querySelector('#sweet-girl, #sweetgirl');
++      var spx = document.querySelector('#spraxxx');
++      if (sm && sweet && spx && sweet.parentNode === spx.parentNode) {
++        sweet.parentNode.insertBefore(sm, spx); // place directly before SPRAXXX (i.e., after Sweet Girl)
++      }
++    })();
+   </script>
+ </body>
+ </html>
